@@ -79,7 +79,7 @@ const type = '50106';
                     res1 = await getnode1(res1);
                     await wait(2000);
                     await res1.click();
-                    let url = `http://www.pushplus.plus/send?token=${process.env.PUSHTOKEN}&title=debug签到&content=${message}&template=html`;
+                    let url = `http://www.pushplus.plus/send?token=${process.env.PUSHTOKEN}&title=debug签到&content=${message}&template=html&channel=wechat`;
                     await axios.get(url);
                     console.log("任务结束，正在退出")
                     await page.close();
