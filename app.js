@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const axios = require('axios');
 
 var token = process.env.CODETOKEN;
+
 var index = 0;
 
 function wait(ms) {
@@ -26,7 +27,7 @@ const codes = {
 
 const type = '50106';
 (async () => {
-    const browser = await puppeteer.launch({ headless: "new", args: ["--no-sandbox", "--disabled-setupid-sandbox"], defaultViewport: null, executablePath: process.env.GOOGLE_CHROME_PATH });
+    const browser = await puppeteer.launch({ headless: "new", args: ["--no-sandbox", "--disabled-setupid-sandbox"] , executablePath: process.env.GOOGLE_CHROME_PATH });
     const page = await browser.newPage();
     page.on('response',
         function (response) {
@@ -48,7 +49,7 @@ const type = '50106';
                         browser.disconnect();
                         process.exit(0)
                     }
-                    await page.click(".el-input__inner");
+                    await page.click(".el-input__inner");                 
                     await page.type(".el-input__inner", process.env.USERNAME);
                     await page.type(".el-form-item:nth-child(3) .el-input__inner", process.env.PASSWORD);
                     console.log(`验证码获取成功，值为${value}`)
@@ -57,9 +58,9 @@ const type = '50106';
                     await page.click(".el-form-item__content .login_submit");
                     await page.waitForNavigation();
                     message += `<div>登录成功</div>`;
-                    await page.waitForSelector('.leftMenu_footer_userImg')
-                    await page.hover('.leftMenu_footer_userImg');
-                    await page.click('.icon-gerenzhongxin')
+                    await page.waitForSelector('.leftMenu_footer_userImg_box')
+                    await page.hover('.leftMenu_footer_userImg_box');
+                    await page.click('.leftMenu_footer_user_menu_item')
                     await page.waitForNavigation();
                     let res = await page.$('.el-badge .signInButton');
                     async function getnode(res = null) {
