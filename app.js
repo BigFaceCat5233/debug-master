@@ -27,7 +27,7 @@ const codes = {
 
 const type = '50106';
 (async () => {
-    const browser = await puppeteer.launch({ headless:'new', args: ["--no-sandbox", "-disabled-setupid-sandbox"] , executablePath: process.env.GOOGLE_CHROME_PATH });
+    const browser = await puppeteer.launch({ args: ["--no-sandbox", "--disabled-setupid-sandbox"] , executablePath: process.env.GOOGLE_CHROME_PATH });
     const page = await browser.newPage();
     page.on('response',
         function (response) {
