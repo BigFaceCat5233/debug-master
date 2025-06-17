@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const axios = require('axios');
 
-var token = process.env.CODETOKEN;
+var token =process.env.CODETOKEN;
 
 var index = 0;
 
@@ -27,7 +27,7 @@ const codes = {
 
 const type = '50106';
 (async () => {
-    const browser = await puppeteer.launch({ headless: "new", args: ["--no-sandbox", "--disabled-setupid-sandbox"] , executablePath: process.env.GOOGLE_CHROME_PATH });
+    const browser = await puppeteer.launch({ headless:'new', args: ["--no-sandbox", "-disabled-setupid-sandbox"] , executablePath: process.env.GOOGLE_CHROME_PATH });
     const page = await browser.newPage();
     page.on('response',
         function (response) {
@@ -55,12 +55,14 @@ const type = '50106';
                     console.log(`验证码获取成功，值为${value}`)
                     message += `<div>验证码获取成功，值为${value}</div>`;
                     await page.type(".el-form-item:nth-child(4) .el-input__inner", `${value}`);
+         
                     await page.click(".el-form-item__content .login_submit");
                     await page.waitForNavigation();
                     message += `<div>登录成功</div>`;
+
                     await page.waitForSelector('.leftMenu_footer_userImg_box')
                     await page.hover('.leftMenu_footer_userImg_box');
-                    await page.click('.leftMenu_footer_user_menu_item')
+                    await page.click('.leftMenu_footer_user_menu_item .icon-gerenzhongxin')
                     await page.waitForNavigation();
                     let res = await page.$('.el-badge .signInButton');
                     async function getnode(res = null) {
